@@ -916,7 +916,7 @@ $('#profile').on('pageshow', function () {
                 
                 var cancelEvent =  ' <button class="ui-btn ui-btn-d ui-shadow ui-corner-all ui-btn-icon-left ui-icon-delete" data-theme="c"onclick="cancelEvent1()" >Cancel this Event!</button>';
                 
-                var sendInvites =  ' <button class="ui-btn ui-btn-d ui-shadow ui-corner-all ui-btn-icon-left ui-icon-action" data-theme="c"onclick="sendInvites()" >Invite Users</button>';
+                var sendInvites =  ' <button id="SendInvite" class="ui-btn ui-btn-c ui-shadow ui-corner-all ui-btn-icon-left ui-icon-action" data-theme="c"onclick="sendInvites1()" >Invite Users</button>';
 
                 
                 
@@ -1129,11 +1129,11 @@ query.once("value")
                 }
                 
                 
-                function sendInvites()
+                function sendInvites1()
                 {
-                    document.getElementById("firstbutton").disabled = true;
+                    document.getElementById("SendInvite").disabled = true;
                     window.alert("Invitation send to the users!");
-                     document.getElementById("firstbutton").value= "Invitations Sent";
+                     document.getElementById("SendInvite").innerHTML= "Invitations Sent";
                 }
                 
                 
@@ -1364,10 +1364,10 @@ query.once("value")
         console.log(childData.userID);
         if(userID != childData.userID){
         
-        $('#invitelist').append(lines2);
+        $('#invitelist2').append(lines2);
             }
         
-    $('#invitelist').listview("refresh");
+    $('#invitelist2').listview("refresh");
         var childData = childSnapshot.val();
         console.log(userID);
         console.log(childData.userID);
@@ -1392,7 +1392,7 @@ query.once("value")
             </script>
         
            <!--<div id="initelist" class="ui-body-d ui-content" data-theme="a">-->
-      <ul data-role="listview" data-inset="true" id="invitelist" data-theme="a">
+      <ul data-role="listview" data-inset="true" id="invitelist2" data-theme="a">
                </ul><!--</div>-->
           
         
