@@ -9,8 +9,6 @@
 <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
 <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>   
 <script src="https://www.gstatic.com/firebasejs/3.9.0/firebase.js"></script>
-    
-    
     <link rel="stylesheet" href="jquery.mobile.datepicker.css" />
 	<link rel="stylesheet" href="jquery.mobile.datepicker.theme.css" />
     <script src="external/jquery-ui/datepicker.js"></script>
@@ -877,9 +875,9 @@ $('#profile').on('pageshow', function () {
                   <!--<h5 id="showName"></h5>-->
               </div>
             <li><a href="#profile">Profile</a></li>
-            <li><a href="#">Events</a></li>
+            <li><a href="#All_Events">Events</a></li>
             <li><a href="#pagethree">Create an Event</a></li>
-            <li>Invites</li>
+            <li><a href="#invites">Invites</a></li>
             <li>Cause Areas</li>
             <li>Settings</li>
             <li><a onclick="logout()" >Logout</a></li>
@@ -918,7 +916,7 @@ $('#profile').on('pageshow', function () {
                 
                 var cancelEvent =  ' <button class="ui-btn ui-btn-d ui-shadow ui-corner-all ui-btn-icon-left ui-icon-delete" data-theme="c"onclick="cancelEvent1()" >Cancel this Event!</button>';
                 
-                
+                var sendInvites =  ' <button class="ui-btn ui-btn-d ui-shadow ui-corner-all ui-btn-icon-left ui-icon-action" data-theme="c"onclick="sendInvites()" >Invite Users</button>';
 
                 
                 
@@ -963,10 +961,12 @@ $('#profile').on('pageshow', function () {
               
               
                $('#buttons').append(deleteBtn);
+              $('#buttons').append(sendInvites);
           }
           else{
               $('#buttons').empty();
                $('#buttons').append(addBtn);
+              
               //  $('#buttons').append(favBtn);
                                      var query = firebase.database().ref('HelpingEvents/'+userID).orderByKey();
 query.once("value")
@@ -1128,6 +1128,16 @@ query.once("value")
                 
                 }
                 
+                
+                function sendInvites()
+                {
+                    document.getElementById("firstbutton").disabled = true;
+                    window.alert("Invitation send to the users!");
+                     document.getElementById("firstbutton").value= "Invitations Sent";
+                }
+                
+                
+                
             </script>
             <style>
             
@@ -1194,6 +1204,202 @@ query.once("value")
         </div>
         
       <!-------------------------------------------------------- Event page ------------------------------------------------------->
+    <!-------------------------------------------------------- invites ------------------------------------------------------->
+        
+        <div data-role="page" id="invites" >
+                 
+        <div data-role="header" data-theme="b">
+            <a href="index.html#pagetwo" class="ui-btn ui-shadow ui-corner-all ui-icon-arrow-l ui-btn-icon-left ui-btn-icon-notext"></a>
+            <h3>Invites</h3>
+        </div>
+        <script>
+            
+             var count = 20;
+      $('#invites').on('pageshow', function () {
+          
+          /*function () {
+  return url.split("?")[0];
+}*/
+          
+          var userID2;
+          
+              firebase.auth().onAuthStateChanged(function(user) {
+         
+  if (user) {
+
+     var user2 = firebase.auth().currentUser;
+    userID2 = user2.uid;
+    /*  var name = user1.displayName;*/
+       var photo1;
+    
+   /*   user2.providerData.forEach(function (profile) {
+          
+         // userID = profile.userID;
+      var name = profile.displayName;
+   
+          photo1 = profile.photoURL;
+          document.getElementById("image2").src = photo1;
+         // document.getElementById("showName").innerHTML= name;
+  
+  });*/
+      
+  } else {
+    console.log("userID3");
+  }
+});
+          
+   
+      
+           $('#list').empty();
+                    var query = firebase.database().ref("Events").orderByKey();
+query.once("value")
+  .then(function(snapshot) {
+    snapshot.forEach(function(childSnapshot) {
+    
+      var key = childSnapshot.key;
+      var childData = childSnapshot.val();
+      
+        
+        var lines2 = '   <li><a id="eventPage'+count+'" href="#" rel="external">  <img id="eventphoto'+count+'" src="#"><h2 id="name'+count+'">Event 1</h2> <p id="CasesArea'+count+'"></p><p id="'+count+'"></p><p id="where'+count+'"></p></a> </li>    ';
+//document.write(lines);
+       
+        console.log(userID);
+        console.log(childData.userID);
+        if(userID != childData.userID){
+        
+        $('#invitelist').append(lines2);
+            }
+        
+    $('#invitelist').listview("refresh");
+        var childData = childSnapshot.val();
+        console.log(userID);
+        console.log(childData.userID);
+       // var input1 = document.getElementById("event");
+		 if(userID != childData.userID){
+         //document.getElementById(count).innerHTML = childData.When;
+             document.getElementById(count).innerHTML = childData.When_Date;
+             document.getElementById("name"+count).innerHTML = childData.EventName;
+             document.getElementById("eventphoto"+count).src = childData.image;
+             document.getElementById("where"+count).innerHTML = childData.Where_add;
+             document.getElementById("CasesArea"+count).innerHTML = childData.CasesArea;
+             document.getElementById("eventPage"+count).href="?cid="+childSnapshot.key+"#event";
+		//input1.value =  childData;
+         }
+         
+        count++;
+  });
+});
+      });
+            
+    
+            </script>
+        
+           <!--<div id="initelist" class="ui-body-d ui-content" data-theme="a">-->
+      <ul data-role="listview" data-inset="true" id="invitelist" data-theme="a">
+               </ul><!--</div>-->
+          
+        
+        </div>
+          <!-------------------------------------------------------- invites ------------------------------------------------------->
+          <!-------------------------------------------------------- All Events ------------------------------------------------------->
+        
+         <div data-role="page" id="All_Events" >
+                 
+        <div data-role="header" data-theme="b">
+            <a href="index.html#pagetwo" class="ui-btn ui-shadow ui-corner-all ui-icon-arrow-l ui-btn-icon-left ui-btn-icon-notext"></a>
+            <h3>All Events</h3>
+        </div>
+        <script>
+            
+             var count = 20;
+      $('#All_Events').on('pageshow', function () {
+          
+          /*function () {
+  return url.split("?")[0];
+}*/
+          
+          var userID2;
+          
+              firebase.auth().onAuthStateChanged(function(user) {
+         
+  if (user) {
+
+     var user2 = firebase.auth().currentUser;
+    userID2 = user2.uid;
+    /*  var name = user1.displayName;*/
+       var photo1;
+    
+   /*   user2.providerData.forEach(function (profile) {
+          
+         // userID = profile.userID;
+      var name = profile.displayName;
+   
+          photo1 = profile.photoURL;
+          document.getElementById("image2").src = photo1;
+         // document.getElementById("showName").innerHTML= name;
+  
+  });*/
+      
+  } else {
+    console.log("userID3");
+  }
+});
+          
+   
+      
+           $('#list').empty();
+                    var query = firebase.database().ref("Events").orderByKey();
+query.once("value")
+  .then(function(snapshot) {
+    snapshot.forEach(function(childSnapshot) {
+    
+      var key = childSnapshot.key;
+      var childData = childSnapshot.val();
+      
+        
+        var lines2 = '   <li><a id="eventPage'+count+'" href="#" rel="external">  <img id="eventphoto'+count+'" src="#"><h2 id="name'+count+'">Event 1</h2> <p id="CasesArea'+count+'"></p><p id="'+count+'"></p><p id="where'+count+'"></p></a> </li>    ';
+//document.write(lines);
+       
+        console.log(userID);
+        console.log(childData.userID);
+        if(userID != childData.userID){
+        
+        $('#invitelist').append(lines2);
+            }
+        
+    $('#invitelist').listview("refresh");
+        var childData = childSnapshot.val();
+        console.log(userID);
+        console.log(childData.userID);
+       // var input1 = document.getElementById("event");
+		 if(userID != childData.userID){
+         //document.getElementById(count).innerHTML = childData.When;
+             document.getElementById(count).innerHTML = childData.When_Date;
+             document.getElementById("name"+count).innerHTML = childData.EventName;
+             document.getElementById("eventphoto"+count).src = childData.image;
+             document.getElementById("where"+count).innerHTML = childData.Where_add;
+             document.getElementById("CasesArea"+count).innerHTML = childData.CasesArea;
+             document.getElementById("eventPage"+count).href="?cid="+childSnapshot.key+"#event";
+		//input1.value =  childData;
+         }
+         
+        count++;
+  });
+});
+      });
+            
+    
+            </script>
+        
+           <!--<div id="initelist" class="ui-body-d ui-content" data-theme="a">-->
+      <ul data-role="listview" data-inset="true" id="invitelist" data-theme="a">
+               </ul><!--</div>-->
+          
+        
+        </div>
+        
+        
+          <!-------------------------------------------------------- All Events ------------------------------------------------------->
     </body>
     
 </html>
