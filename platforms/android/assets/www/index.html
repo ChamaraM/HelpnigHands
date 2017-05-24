@@ -254,7 +254,7 @@ width: auto\9;
             
         
     firebase.auth().createUserWithEmailAndPassword(email, pass).then(function (user) {
-        window.alert("Sucess!");
+        window.alert("Please Wait!");
 
                 var user1 = firebase.auth().currentUser;
 
@@ -274,10 +274,23 @@ width: auto\9;
   var errorCode = error.code;
   var errorMessage = error.message;
                     console.log(errorMessage);
+                    window.alert(errorMessage);
+                
+               
                     
   // ...
 });
-    });}}
+    })      .catch(function(error) {
+  // Handle Errors here.
+  var errorCode = error.code;
+  var errorMessage = error.message;
+                    console.log(errorMessage);
+                    window.alert(errorMessage);
+                
+                    
+                    
+  // ...
+});}}
 </script>
             <div data-role="header" data-theme="b">
         <h3>Sign Up</h3>
