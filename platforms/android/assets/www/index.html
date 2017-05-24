@@ -1,0 +1,1186 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/themes/my-theme-New.css" />
+  <link rel="stylesheet" href="css/themes/jquery.mobile.icons.min.css" />   
+<!--<link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">-->
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile.structure-1.4.5.min.css" /> 
+<script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>   
+<script src="https://www.gstatic.com/firebasejs/3.9.0/firebase.js"></script>
+    
+    
+    <link rel="stylesheet" href="jquery.mobile.datepicker.css" />
+	<link rel="stylesheet" href="jquery.mobile.datepicker.theme.css" />
+    <script src="external/jquery-ui/datepicker.js"></script>
+    <script>
+		$(function(){
+			$( ".date-input-css" ).datepicker();
+		})
+	</script>
+    
+<script>
+    // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyAKfAlbvYAULw3vVNxltQcXIGUFeh6RzQ8",
+    authDomain: "testproject-ea5ee.firebaseapp.com",
+    databaseURL: "https://testproject-ea5ee.firebaseio.com",
+    projectId: "testproject-ea5ee",
+    storageBucket: "testproject-ea5ee.appspot.com",
+    messagingSenderId: "891659227069"
+  };
+  firebase.initializeApp(config);
+    
+    var currentLocation = window.location;
+    
+    
+   
+           $('#pageone').on('pageshow', function () {  
+                              firebase.auth().onAuthStateChanged(function(user) {
+  if (user) {
+  window.location="index.html#pagetwo";
+  } else {
+    window.location="#pageone";
+  }
+});
+                              
+
+});
+    
+    function clickl() {
+         var email2 = document.getElementById("username").value;
+    var pass1 = document.getElementById("password").value;
+      
+        
+        
+       firebase.auth().signInWithEmailAndPassword(email2, pass1).then (function (){
+            //window.alert("sucess!");
+          
+           
+           window.location = "index.html#pagetwo";
+        })
+            .catch(function(error) {
+  // Handle Errors here.
+  var errorCode = error.code;
+  var errorMessage = error.message;
+         
+          
+         
+           if(errorCode="auth/invalid-email")
+               {
+                    
+           
+           window.alert("Invalide Email or Password!");
+                   
+               }
+           
+location.reload();
+
+
+  // ...
+})
+    }
+</script>
+    
+        <script>
+		$( document ).on( "click", ".show-page-loading-msg", function() {
+			    var $this = $( this ),
+				theme = $this.jqmData( "theme" ) || $.mobile.loader.prototype.options.theme,
+				msgText = $this.jqmData( "msgtext" ) || $.mobile.loader.prototype.options.text,
+				textVisible = $this.jqmData( "textvisible" ) || $.mobile.loader.prototype.options.textVisible,
+				textonly = !!$this.jqmData( "textonly" );
+				html = $this.jqmData( "html" ) || "";
+			$.mobile.loading( "show", {
+					text: msgText,
+					textVisible: textVisible,
+					theme: theme,
+					textonly: textonly,
+					html: html
+			});
+		})
+		.on( "click", ".hide-page-loading-msg", function() {
+			$.mobile.loading( "hide" );
+		});
+         
+         
+        
+         
+	</script>
+   
+    <!-- ------------------------------------------back button ----------------------------------- -->
+    
+   
+<!--    <script>
+  jQuery(document).ready(function($) {
+
+  if (window.history && window.history.pushState) {
+
+   // window.history.pushState('forward', null, './#forward');
+
+    $(window).on('popstate', function() {
+      alert('Back button was pressed.');
+    });
+
+  }
+});
+    </script>-->
+    
+     <!-- ------------------------------------------back button ----------------------------------- -->
+    </head>
+    <body >
+        
+<!-----------------------------------------Login page ----------------------------------->
+    
+        <div data-role="page" id="pageone"  >
+            
+<div data-role="header" data-theme="b">
+<h1 >SIGN IN</h1>
+</div>
+<style>
+        #images1{
+padding-top: 15px;
+      padding-bottom: 15px;      
+           /*border-style: solid;
+            border-width: 0px;
+            border-left: 0px;
+            border-right: 0px;
+            border-top: 0px;*/
+        
+        }
+        #images1 img {
+position: relative;
+            
+max-width: 100%;
+    border-radius: 225px;
+    height: 120px;
+width: auto\9;
+    display: block;
+    margin: auto;
+}
+      
+</style>
+            <div id="images1">
+         <img src="logo.png">
+              </div>
+            <div data-role="main" class="ui-content" >
+<input type="text" name="username" id="username" placeholder="UserName">
+                <input type="password" name="password" id="password" placeholder="Password">
+                <button class="ui-btn ui-corner-all show-page-loading-msg ui-btn-b" data-theme="b" data-textonly="false" data-textvisible="true" data-msgtext="Please Wait....." data-inline="true" id="SignIn" onclick="clickl()">Sign In</button>
+                <!-- <button class="ui-btn ui-corner-all "  id="SignIn" onclick="clickl()">Sign In</button>-->
+               <!-- <button class="show-page-loading-msg" data-textonly="false" data-textvisible="true" data-msgtext="" data-inline="true">Icon + text</button> -->
+                <br>
+                <a>Forget password?</a>
+                <br><br><br>
+                <fieldset class="ui-grid-solo">
+                    <div class="ui-block-a">
+                
+                        Or</div>
+              
+                </fieldset>
+                <fieldset class="ui-grid-a">
+                    <button  class="ui-btn ui-corner-all ui-btn-b" onclick="window.location='#register';" data-theme="b">Sign up</button>
+                    
+                </fieldset>
+</div>
+        </div> 
+        
+<!-----------------------------------------------Login page ----------------------------------->
+        
+        
+<!------------------------------------------ Register page ------------------------------------>
+       <div data-role="page" id="register" >
+           <script>
+    var userName = document.getElementById("txt-first-name");
+               var imgurl;
+ 
+               
+               function encodeImageFileAsURL() {
+
+    var filesSelected = document.getElementById("profile-photo").files;
+    if (filesSelected.length > 0) {
+    var fileToLoad = filesSelected[0];
+    var fileReader = new FileReader();
+
+      fileReader.onload = function(fileLoadedEvent) {
+        var srcData = fileLoadedEvent.target.result; // <--- data: base64
+
+    
+          imgurl = srcData;
+          
+      }
+      fileReader.readAsDataURL(fileToLoad);
+    }
+  }
+               
+               
+               
+    function cluck()  {
+      
+        
+  //var path = $('#profile-photo').attr("value");
+      
+    var email = document.getElementById("txt-email").value;
+     var pass = document.getElementById("txt-password").value;
+        var con_pass = document.getElementById("txt-password-confirm").value;
+   // var Country= document.getElementById("txt-Country").value;
+        var name = document.getElementById("txt-first-name").value;
+       // var ZIPcode = document.getElementById("txt-Postal-Code").value;
+        var proImage = document.getElementById("profile-photo").files[0].fileName;
+     
+    
+        if(email == null || email ==""){
+           window.alert("Email can not blank!");
+        }
+        else if(name==null || name ==""){
+            
+            window.alert("Name can not blank!");
+        }
+        else if(pass===null || pass =="")
+            {
+                window.alert("Password can not blank!");
+            }
+        else if(pass.length < 6)
+            {
+                window.alert("Password must have at least 6 characters!");
+            }
+        else if (pass !=con_pass){
+             window.alert("Password did not matched!");
+        }
+        else{
+        
+
+            
+            
+        
+    firebase.auth().createUserWithEmailAndPassword(email, pass).then(function (user) {
+        window.alert("Sucess!");
+
+                var user1 = firebase.auth().currentUser;
+
+                
+                user1.updateProfile({
+                    displayName: name,
+                    photoURL: imgurl
+                
+                    
+                }).then(function(){
+                    window.alert("Successfully registered!");
+                    window.location="#pageone";
+                    
+                })
+        .catch(function(error) {
+  // Handle Errors here.
+  var errorCode = error.code;
+  var errorMessage = error.message;
+                    console.log(errorMessage);
+                    
+  // ...
+});
+    });}}
+</script>
+            <div data-role="header" data-theme="b">
+        <h3>Sign Up</h3>
+    </div><!-- /header -->
+    <div role="main" class="ui-content">
+        
+        <label for="txt-first-name">Name</label>
+        <input type="text" name="txt-first-name" id="txt-first-name" value="">
+        
+      <!--  <label for="txt-last-name">Last Name</label>
+        <input type="text" name="txt-last-name" id="txt-last-name" value="">-->
+        
+        
+        
+        <label for="txt-email">Email Address</label>
+        <input type="text" name="txt-email" id="txt-email" value="">
+        
+         <!--<label for="txt-Country">Country</label>
+        <input type="text" name="txt-Country" id="txt-Country" value="">
+        
+         <label for="txt-Postal-Code">ZIP/Postal Code</label>
+        <input type="text" name="txt-Postal-Code" id="txt-Postal-Code" value="">-->
+        
+        <label for="txt-password">Password</label>
+        <input type="password" name="txt-password" id="txt-password" value="">
+        
+        <label for="txt-password-confirm">Confirm Password</label>
+        <input type="password" name="txt-password-confirm" id="txt-password-confirm" value="">
+        
+        <label for="profile-photo">Profile Picture :</label>
+              <input type="file" name="profile-photo" id="profile-photo" value="" onchange="encodeImageFileAsURL()">
+        
+        <!--<label>
+            
+        <input type="checkbox" name="checkbox-0 ">I hereby certify that the above information given are true and correct
+    </label>-->
+       <button class="ui-btn ui-corner-all ui-btn-b" id="clickSubmit" onclick="cluck()" >Sign Up</button>
+        <div data-role="popup" id="dlg-sign-up-sent" data-dismissible="false" style="max-width:400px;">
+            <div data-role="header">
+                <h1>Almost done...</h1>
+            </div>
+        </div></div>
+        </div>
+        
+<!--------------------------------------------------- Register page ------------------------------------------------------------>
+        
+
+<!---------------------------------------------------- Create Event page ------------------------------------------------------->      
+        <div data-role="page" id="pagethree" >
+            <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places&sensor=false"></script>
+             <!--<script async defer
+                     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD869ff7r5VbOr0nc3tbgayMumcn6ELdzA&libraries=places&sensor=false"></script>-->
+        <script>
+            
+            var longi, latti, address, event_Img;
+            
+              google.maps.event.addDomListener(window, 'load', intilize);
+    function intilize() {
+        var autocomplete = new google.maps.places.Autocomplete(document.getElementById("txt-where"));
+
+        google.maps.event.addListener(autocomplete, 'place_changed', function () {
+
+        var place = autocomplete.getPlace();
+ /*       var location = "Address: " + place.formatted_address + "<br/>";
+        location += "Latitude: " + place.geometry.location.lat() + "<br/>";
+    location += "Longitude: " + place.geometry.location.lng();
+        document.getElementById('lblresult').innerHTML = location*/
+         longi = place.geometry.location.lng();
+        latti = place.geometry.location.lat();
+        address = place.formatted_address;
+            
+        });
+
+    };
+
+            
+            
+            function encodeImage() {
+
+    var filesSelected = document.getElementById("event_Photo").files;
+    if (filesSelected.length > 0) {
+    var fileToLoad = filesSelected[0];
+    var fileReader = new FileReader();
+
+      fileReader.onload = function(fileLoadedEvent) {
+        var srcData = fileLoadedEvent.target.result; // <--- data: base64
+
+    
+          event_Img = srcData;
+          
+      }
+      fileReader.readAsDataURL(fileToLoad);
+    }
+  }
+            
+            
+            
+  $('#pagethree').on('pageshow', function () {
+                              
+  firebase.auth().onAuthStateChanged(function(user) {
+
+      if (user) {
+  
+  } 
+      else 
+      {
+          window.location="#pageone";
+      }
+});
+                              
+
+});
+            
+   
+            function addData(){
+                
+        var database = firebase.database();
+        var user = firebase.auth().currentUser;
+        var userID = user.uid;
+        var email = user.email;
+        var name = user.displayName;
+		var eventName = document.getElementById("txt-eventName").value;
+        var when = document.getElementById("txt-when").value;
+		var where = document.getElementById("txt-where").value;
+		var casesarea = document.getElementById("select-choice-8").value;
+        var when_time = document.getElementById("time-1").value; 
+        var when_date = document.getElementById("txt-when").value;
+		var Image =event_Img; //document.getElementById("image").value;
+        var desc = document.getElementById("textarea").value;
+
+
+// Get a database reference to our blog
+var db = firebase.database();
+var ref = db.ref();
+var user = firebase.auth().currentUser;
+var usersRef = ref.child('Events/' );
+                
+                usersRef.push({
+                        userID: userID,
+                        username: name,
+                        EventName: eventName,
+                        When_Date: when_date,
+                        When_Time: when_time,
+                        Where_long: longi,
+                        Where_lat: latti,
+                        Where_add: address,
+                        CasesArea: casesarea,
+                        email: email,
+                        image: Image,
+                        Desc: desc,
+}).then (function (){
+    window.alert("Event creat succesfully")
+    window.location = "index.html#pagetwo";
+});
+            }
+                
+                //------------------------------------------------------
+
+    </script>
+        
+        
+        <div data-role="header" data-theme="b">
+               <a href="index.html#pagetwo" class="ui-btn ui-shadow ui-corner-all ui-icon-arrow-l ui-btn-icon-left ui-btn-icon-notext"></a>
+        <h3>Create an Event</h3>
+    </div>
+          <div role="main" class="ui-content">
+             
+              <label for="evntPhoto">Event Photo :</label>
+              <input type="file" name="event_Photo" id="event_Photo" value="" onchange="encodeImage()">
+			  
+              <label for="txt-first-name">Event Name :</label>
+              <input type="text" name="txt-eventName" id="txt-eventName" value="">
+			  
+              <label for="txt-when">When :</label>
+              <label for="txt-when">Date :</label>
+              <input type="text" class="date-input-css" id="txt-when">
+              <label for="txt-when">Time :</label>
+              <input type="time" data-clear-btn="false" name="time-1" id="time-1" value="">
+              <!--<input type="text" name="txt-when" id="txt-when" value="">-->
+			 
+              <label for="txt-where">Where :</label>
+              <input type="text" name="txt-where" id="txt-where" value="">
+			 
+         <label for="select-choice-8" class="select">Cause Areas :</label>
+<select name="select-choice-8" id="select-choice-8" multiple="multiple" data-native-menu="false" data-icon="grid" data-iconpos="left">
+    <option>Choose Cause Area:</option>
+    <optgroup label="">
+        <option value="Homeless & Housing" >Homeless & Housing</option>
+        <option value="Environment">Environment</option>
+        <option value="Education & Literacy">Education & Literacy</option>
+        <option type="radio" value="Animal">Animal</option> 
+    </optgroup>
+    
+</select>
+              
+              <div data-role="fieldcontain">
+                  <label for="textarea">Description :</label>
+	               <textarea name="textarea" id="textarea"></textarea>
+              </div>
+          </div>
+            
+          <button class="ui-btn ui-btn-b ui-shadow ui-corner-all ui-btn-icon-left ui-icon-check" onclick="addData()">Create</button>
+        
+        </div>
+
+<!----------------------------------------------------- Create Event page ---------------------------------------------------->
+        
+        
+<!-------------------------------------------------------- Profile page ------------------------------------------------------->
+        
+        
+         <div data-role="page" id="profile" data-theme="a" onload="load()" data-init="load()">
+                 <style type="text/css">
+#images {
+
+   
+}
+#images img {
+position: relative;
+max-width: 100%;
+    border-radius: 225px;
+    height: 150px;
+width: auto\9;
+    display: block;
+    margin: auto;
+}
+</style>
+             
+             
+                   <script>
+   
+                          $('#profile').on('pageshow', function () {
+                              
+                              
+                              
+                              firebase.auth().onAuthStateChanged(function(user) {
+  if (user) {
+      
+    var user1 = firebase.auth().currentUser;
+   
+    var userID = user1.uid;
+    var name = user1.displayName;
+    var photo;
+    var email1;
+    user1.providerData.forEach(function (profile) {
+    var name = profile.displayName;
+    email1 = profile.email;
+    photo = profile.photoURL;
+    
+        
+  });
+      		
+      document.getElementById("txt-Name").value =  name;
+      document.getElementById("txt-Name").value =  name;
+      document.getElementById("txt-email1").value =  email1;
+      document.getElementById("image1").src = photo;
+      
+		 
+  } else {
+    console.log("userID3");
+  }
+});
+                          });
+             </script>      
+    <div data-role="header" data-theme="b">
+    <a href="index.html#pagetwo" class="ui-btn ui-shadow ui-corner-all ui-icon-arrow-l ui-btn-icon-left ui-btn-icon-notext ui-btn-a" ></a>
+    <h3>Profile</h3>
+    </div>
+          <div role="main" class="ui-content">
+              <div id="images">
+              <img id="image1" src="1.jpg">
+              </div>
+              <br>
+              
+              <label for="txt-first-name">First Name :</label>
+			  <input type="text" name="txt-Name" id="txt-Name" readonly>
+        
+            <!--  
+              <label for="txt-LastName">Last Name :</label>
+              <input type="text" name="txt-LastName" id="txt-LastName" readonly>-->
+              
+              
+              <!--<label for="txt-country">Country :</label>
+                <input type="text" name="txt-country" id="txt-country" readonly>-->
+              
+              <!--<label for="txt-first-name">ZIP/Postal Code :</label>
+              <input type="text" name="txt-zip" id="txt-zip" readonly>-->
+              
+              <label for="txt-email1">Email :</label>
+              <input type="text" name="txt-email1" id="txt-email1" readonly>
+              
+          </div>
+          <button class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-edit ui-btn-b">Edit Profile</button>
+        </div>
+        
+        
+        <!-------------------------------------------------------- Profile page ------------------------------------------------------->
+  <!------------------------------------------------------Home page -------------------------------------------------------------->
+        <div data-role="page" id="pagetwo" >
+                <style>
+        #images{
+padding-top: 15px;
+      padding-bottom: 15px;      
+           border-style: solid;
+            border-width: 1px;
+            border-left: 0px;
+            border-right: 0px;
+            border-top: 0px;
+        background-color: #2b71e2;
+        }
+        #images img {
+position: relative;
+            
+max-width: 100%;
+    border-radius: 325px;
+    height: 80px;
+width: auto\9;
+    display: block;
+    margin: auto;
+}
+      
+</style>
+            <script src="cordova.js"></script>
+             <script>
+                 
+           //------------------------Back button-----------------------------------------------------
+       /*      $('#pageone').on('pageshow', function () {
+                  document.addEventListener("deviceready", function () {
+        document.addEventListener("backbutton", function() {
+            if ( document.URL.contains="#pageone" ) {
+   navigator.app.exitApp();
+}
+            else{
+          alert('Menu button pressed.');
+            history.go(-1);
+    navigator.app.backHistory();
+            console.log("dsfdsafsdfs");}
+        }, true);
+      }, false);});*/
+                 
+                 
+    //------------------------Back button-----------------------------------------------------
+                 
+                 
+                 
+    function logout(){
+        
+        firebase.auth().signOut().then(function() {
+  window.alert("Sign-out successful!");
+             window.location = "#pageone";
+}).catch(function(error) {
+            var errorCode = error.code;
+  var errorMessage = error.message;
+            console.log(errorMessage);
+  window.alert("Failed!")
+});
+        
+    }
+    
+    </script>
+        
+        <div data-role="header" data-theme="b">
+        <h1>Home</h1>
+        <a href="#left-panel" data-icon="bars" data-iconpos="notext" data-shadow="false" data-iconshadow="false">Menu</a>
+    </div>
+            
+           <div role="main" class="ui-content">
+               <div id="search">
+               <form>
+     
+     <input type="search" name="search-1" id="search-1" value="" placeholder="City,State or ZIP/Postal Code">
+</form></div>
+            <div data-role="tabs" id="tabs">
+  <div data-role="navbar">
+    <ul>
+      <li><a href="#one" data-ajax="false">My Events</a></li>
+      <li><a href="#two" data-ajax="false">Upcoming Events</a></li>
+      
+    </ul>
+  </div>
+  <div id="one" class="ui-body-d ui-content">
+      <ul data-role="listview" data-inset="true" id="list" data-theme="a">
+      <script>
+
+          var count = 0;
+      $('#pagetwo').on('pageshow', function () {
+          
+          /*function () {
+  return url.split("?")[0];
+}*/
+          
+          var userID;
+          
+              firebase.auth().onAuthStateChanged(function(user) {
+         
+  if (user) {
+
+     var user1 = firebase.auth().currentUser;
+    userID = user1.uid;
+    /*  var name = user1.displayName;*/
+       var photo1;
+    
+      user1.providerData.forEach(function (profile) {
+          
+         // userID = profile.userID;
+      var name = profile.displayName;
+   
+          photo1 = profile.photoURL;
+          document.getElementById("image2").src = photo1;
+         // document.getElementById("showName").innerHTML= name;
+  
+  });
+      
+  } else {
+    console.log("userID3");
+  }
+});
+          
+   
+      
+           $('#list').empty();
+                    var query = firebase.database().ref("Events").orderByKey();
+query.once("value")
+  .then(function(snapshot) {
+    snapshot.forEach(function(childSnapshot) {
+    
+      var key = childSnapshot.key;
+      var childData = childSnapshot.val();
+      
+        
+        var lines = '   <li><a id="eventPage'+count+'" href="#" rel="external">  <img id="eventphoto'+count+'" src="#"><h2 id="name'+count+'">Event 1</h2> <p id="CasesArea'+count+'"></p><p id="'+count+'"></p><p id="where'+count+'"></p></a> </li>    ';
+//document.write(lines);
+       
+        
+        if(userID == childData.userID){
+        
+        $('#list').append(lines);
+            }
+        
+    $('#list').listview("refresh");
+        var childData = childSnapshot.val();
+       // var input1 = document.getElementById("event");
+		 if(userID == childData.userID){
+         //document.getElementById(count).innerHTML = childData.When;
+             document.getElementById(count).innerHTML = childData.When_Date;
+             document.getElementById("name"+count).innerHTML = childData.EventName;
+             document.getElementById("eventphoto"+count).src = childData.image;
+             document.getElementById("where"+count).innerHTML = childData.Where_add;
+             document.getElementById("CasesArea"+count).innerHTML = childData.CasesArea;
+             document.getElementById("eventPage"+count).href="?cid="+childSnapshot.key+"#event";
+		//input1.value =  childData;
+         }
+         
+        count++;
+  });
+});
+      });
+      </script>
+          </ul>
+  </div>
+                
+                <div id="two" class="ui-body-d ui-content" data-theme="a">
+      <ul data-role="listview" data-inset="true" id="list2" data-theme="a">
+      <script>
+          
+          
+          
+          
+          
+          var count = 0;
+      $('#pagetwo').on('pageshow', function () {
+          
+          var userID;
+          
+              firebase.auth().onAuthStateChanged(function(user) {
+         
+  if (user) {
+
+     var user1 = firebase.auth().currentUser;
+    userID = user1.uid;
+    /*  var name = user1.displayName;*/
+      var photo1;
+     
+      user1.providerData.forEach(function (profile) {
+          
+         // userID = profile.userID;
+          var name = profile.displayName;
+   
+          photo1 = profile.photoURL;
+          document.getElementById("image2").src = photo1;
+         // document.getElementById("showName").innerHTML= name;
+  
+  });
+      
+  } else {
+    console.log("userID3");
+  }
+});
+          
+ 
+          
+           $('#list2').empty();
+                    var query = firebase.database().ref("Events").orderByKey();
+          console.log(query);
+query.once("value")
+  .then(function(snapshot) {
+    snapshot.forEach(function(childSnapshot) {
+    
+      var key = childSnapshot.key;
+   
+        var childData = childSnapshot.val();
+    
+        
+        var lines = '   <li><a id="eventPage'+count+'" href="#" rel="external">  <img id="eventphoto'+count+'" src="#"><h2 id="name'+count+'">Event 1</h2> <p id="CasesArea'+count+'"></p><p id="'+count+'"></p><p id="where'+count+'"></p></a> </li>    ';
+//document.write(lines);
+       
+        
+        if(userID != childData.userID){
+        
+        $('#list2').append(lines);
+            }
+        
+    $('#list2').listview("refresh");
+        var childData = childSnapshot.val();
+       // var input1 = document.getElementById("event");
+		 if(userID != childData.userID){
+       document.getElementById(count).innerHTML = childData.When_Date;
+             document.getElementById("name"+count).innerHTML = childData.EventName;
+             document.getElementById("eventphoto"+count).src = childData.image;
+             document.getElementById("where"+count).innerHTML = childData.Where_add;
+             document.getElementById("CasesArea"+count).innerHTML = childData.CasesArea;
+             document.getElementById("eventPage"+count).href="?cid="+childSnapshot.key+"#event";
+             
+		//input1.value =  childData;
+         }
+         
+        count++;
+  });
+});
+      });
+      </script>
+          </ul>
+  </div>
+</div>
+            </div>
+            
+            
+             <script>
+   
+$('#profile').on('pageshow', function () {
+                              
+                              
+                              
+     firebase.auth().onAuthStateChanged(function(user) {
+         
+  if (user) {
+
+      var user1 = firebase.auth().currentUser;
+      var userID = user1.uid;
+      var name = user1.displayName;
+      var photo1;
+      
+      user1.providerData.forEach(function (profile) {
+          
+      var name = profile.displayName;
+      photo1 = profile.photoURL;
+      document.getElementById("image2").src = photo;
+          //document.getElementById("showName").innerHTML= name;
+  
+  });
+      
+  } else {
+    console.log("userID3");
+  }
+});
+                          });
+             </script> 
+            
+
+  <div data-role="panel" id="left-panel">
+        <ul data-role="listview" >
+              <div id="images">
+         <img id="image2" src="photo1">
+                  <!--<h5 id="showName"></h5>-->
+              </div>
+            <li><a href="#profile">Profile</a></li>
+            <li><a href="#">Events</a></li>
+            <li><a href="#pagethree">Create an Event</a></li>
+            <li>Invites</li>
+            <li>Cause Areas</li>
+            <li>Settings</li>
+            <li><a onclick="logout()" >Logout</a></li>
+                </ul>
+        <ul data-role="listview">
+   
+</ul>
+    </div>
+        
+        </div>
+        
+        
+<!--------------------------------------------------------Home page ------------------------------------------------------------>
+        
+<!-------------------------------------------------------- Event page ------------------------------------------------------->
+        <div data-role="page" id="event" data-url="event" >
+        
+            <script>
+            
+                /*$(document).on('pagebeforeshow', "event.html", function (event, data) {
+    var parameters = $(this).data("url").split("?")[1];;
+    parameter = parameters.replace("paremeter=","");  
+    alert(parameters);
+    
+});*/
+            
+                var chilKey;
+                var latt = 6.987356 ;
+                var long = 80.013408;
+                var childID;
+                var userID;
+                
+                var favBtn = '<button class="ui-btn ui-btn-c ui-shadow ui-corner-all ui-btn-icon-left ui-icon-star" >ADD TO FAVORITES</button>';
+           var addBtn = ' <button class="ui-btn ui-btn-c ui-shadow ui-corner-all ui-btn-icon-left ui-icon-heart" onclick="helpEvent()">I want to help!</button>';
+                var deleteBtn = '<button class="ui-btn ui-btn-d ui-shadow ui-corner-all ui-btn-icon-left ui-icon-delete"  onclick="delete1()">DELETE EVENT</button>';
+                
+                var cancelEvent =  ' <button class="ui-btn ui-btn-d ui-shadow ui-corner-all ui-btn-icon-left ui-icon-delete" data-theme="c"onclick="cancelEvent1()" >Cancel this Event!</button>';
+                
+                
+
+                
+                
+                
+                $('#event').on('pagebeforeshow', function(event, ui) {
+    //alert('Page 2 - CID: ' + getParameterByName('cid'));
+                    chilKey = "Events/"+getParameterByName('cid');
+                     childID = getParameterByName('cid');
+  
+                                 var query = firebase.database().ref(chilKey);
+
+                query.on("value", function(snapshot) {
+  
+                    
+                    var data = snapshot.val();
+                    document.getElementById("eventName").innerHTML = data.EventName;
+                    document.getElementById("eventImage").src = data.image;
+                    document.getElementById("CauseAreas").innerHTML = data.CasesArea;
+                   // document.getElementById("When").innerHTML = data.When;
+                    document.getElementById("When_date").innerHTML = data.When_Date;
+                    document.getElementById("When_time").innerHTML = data.When_Time;
+                    document.getElementById("eventDesc").innerHTML = data.Desc;
+                    userID = data.userID;
+                    latt = data.Where_lat;
+                    long = data.Where_long;
+                    initMap();
+
+                    
+                                                  
+  firebase.auth().onAuthStateChanged(function(user) {
+
+      if (user) {
+  
+            var user1 = firebase.auth().currentUser;
+          console.log(userID);
+          console.log(user1.uid);
+      if(userID == user1.uid)
+          {
+              
+              
+              $('#buttons').empty();
+              
+              
+               $('#buttons').append(deleteBtn);
+          }
+          else{
+              $('#buttons').empty();
+               $('#buttons').append(addBtn);
+              //  $('#buttons').append(favBtn);
+                                     var query = firebase.database().ref('HelpingEvents/'+userID).orderByKey();
+query.once("value")
+  .then(function(snapshot) {
+    snapshot.forEach(function(childSnapshot) {
+    
+      var key = childSnapshot.key;
+        
+        var childData = childSnapshot.val();
+        console.log(childData);
+        var EID = childData.EventID;
+        console.log(EID);
+        console.log(childID);
+        
+        if(EID == childID){
+            $('#buttons').empty();
+            
+             $('#buttons').append(cancelEvent);
+        }
+           
+        
+        
+        
+                    
+                }
+                     );});
+              
+              
+              
+               
+          }
+          
+  } 
+      else 
+      {
+          window.location="#pageone";
+      }
+});
+                    
+                    
+}, function (errorObject) {
+  console.log("The read failed: " + errorObject.code);
+});
+                    
+                    
+                    
+                    
+});
+               
+                
+                
+
+function getParameterByName(name) {
+    var match = RegExp('[?&]' + name + '=([^&]*)').exec(window.location.search);
+    return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+}
+                
+                
+             function initMap() {
+         
+          
+          
+        var uluru = {lat: latt, lng: long};
+        var map = new google.maps.Map(document.getElementById('map-canvas'), {
+          zoom: 13,
+          center: uluru
+        });
+        var marker = new google.maps.Marker({
+          position: uluru,
+          map: map,
+           
+        });
+          console.log(marker);
+      }
+                
+                
+                
+                
+                function delete1(){
+                 
+                    var  qur = firebase.database().ref(chilKey);
+                    qur.remove();
+                    location.reload();
+                    window.location="index.html#pagetwo"
+                }
+                
+                
+                
+                function helpEvent(){
+                    
+                    var db = firebase.database();
+var ref = db.ref();
+var user = firebase.auth().currentUser.userID;
+
+var usersRef = ref.child('HelpingEvents/'+userID+'/' );
+                
+                usersRef.push({
+                      EventID: childID,
+}
+                             
+                           
+                    ).then (function (){
+   
+    location.reload();
+});
+    window.alert("Your participation has been recorded!")
+     location.reload();
+                    
+                }
+  //--------------------------------------------------------------------              
+        function addToFav(){
+            var db = firebase.database();
+var ref = db.ref();
+var user = firebase.auth().currentUser.userID;
+
+var usersRef = ref.child('FavEvents/'+userID+'/' );
+                
+                usersRef.push({
+                      EventID: childID,
+}).then (function (){
+    window.alert("Succesfully add this event to favourite list!")
+   location.reload();
+});
+             window.alert("Succesfully add this event to favourite list!")
+   location.reload();
+            
+        }
+
+//----------------------------------------------------------------------
+                
+                function cancelEvent1(){
+                   /* var  qur = firebase.database().ref();
+                    var usersRef = ref.child('FavEvents/'+userID+'/'+childID+);
+                                   usersRef.remove(); */        
+                    window.alert("Event canceled!");
+                    
+                    
+                       var query = firebase.database().ref('HelpingEvents/'+userID).orderByKey();
+query.once("value")
+  .then(function(snapshot) {
+    snapshot.forEach(function(childSnapshot) {
+    
+      var key = childSnapshot.key;
+        
+        var childData = childSnapshot.val();
+        
+        var EID = childData.EventID;
+       
+        
+        if(EID == childID)
+           firebase.database().ref('HelpingEvents/'+userID+'/'+key).remove();
+        location.reload();
+        
+        
+        
+                    
+                }
+                     );});
+                
+                }
+                
+            </script>
+            <style>
+            
+            EventName
+            </style>
+            
+            
+        <div data-role="header" data-theme="b">
+            <a href="index.html#pagetwo" class="ui-btn ui-shadow ui-corner-all ui-icon-arrow-l ui-btn-icon-left ui-btn-icon-notext"></a>
+            <h3>Event</h3>
+        </div>
+        <div role="main" class="ui-content">
+            <h4 id="eventName"><br><a>User name</a></h4>
+            
+            <style>
+                #eventImage{
+                    position: relative;
+                    max-width: 100%;
+                    height: 150px;
+                    width: auto\9;
+                    display: block;
+                    margin: auto;
+                }
+            
+            </style>
+            
+            <img id="eventImage" src="">
+            <h4>About</h4>
+            <p id="eventDesc">
+</p>
+            
+            <h4><a  class="ui-btn ui-shadow ui-corner-all ui-icon-grid ui-btn-icon-notext ui-btn-inline"></a>Cause Areas</h4>
+            <p id="CauseAreas"></p>
+            <style>	
+#map-page, #map-canvas {
+  
+    position: relative;
+    max-width: 100%;
+    height: 250px;
+    width: auto\9;
+    display: block;
+    margin: auto;
+    
+    
+        }
+    </style>
+            <h4 ><a  class="ui-btn ui-shadow ui-corner-all ui-icon-calendar ui-btn-icon-notext ui-btn-inline"></a>When</h4>
+            <h5>Date:</h5>
+            <p id="When_date"></p>
+            <h5>Time:</h5>
+            <p id="When_time"></p>
+                           <h4 ><a class="ui-btn ui-shadow ui-corner-all ui-icon-navigation ui-btn-icon-notext ui-btn-inline"></a>Where</h4>
+         <div role="main" class="ui-content" id="map-canvas">
+        <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD869ff7r5VbOr0nc3tbgayMumcn6ELdzA&callback=initMap&libraries=places&sensor=false">
+    </script>
+   <!-- <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places&sensor=false"></script>-->
+        
+    </div>
+            <div id="buttons">
+            
+                </div>
+        </div>
+        </div>
+        
+      <!-------------------------------------------------------- Event page ------------------------------------------------------->
+    </body>
+    
+</html>
